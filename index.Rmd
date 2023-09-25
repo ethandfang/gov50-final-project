@@ -11,4 +11,4 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to public opinion polling. 
+I am interested in exploring data related to disability advocacy, race, and gender theory. More specifically, one idea regarding disability justice is seeing how college rates differ amongst students who classify as having a disability versus not, controlling for standardized test scores. Another idea is examining the effect of redlining practices. Lastly, I could do a project about climate change. 

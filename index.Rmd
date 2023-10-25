@@ -23,3 +23,45 @@ My dataset for this project will be the Opportunity Atlas, which contains data o
 
 If the trend saw that ZIP codes with higher proportions of white people had higher average mobility than ZIP codes with high proportions of minorities, then this data would support my hypothesis. If the trend saw that ZIP codes with higher proportions of white people had similar or smaller average mobility than ZIP codes with high proportions of minorities, then this observed data pattern would disprove my hypothesis. When I run a regression for correlation between proportion of white people and average mobility, a positive, significant coefficient would indicate support for my hypothesis.
 
+## Visualization Showing Link
+```{r, echo=FALSE}
+library(haven)
+library(tidyverse)
+library(ggplot2)
+library(tidyverse) #data science tools
+library(haven) # enables transfer between stata, R, etc
+library(ggplot2) # graphing tools
+library(statar) # stata commands in R
+library(scales) # add commas 
+#library(dplyr) = data manipulation tools 
+library(sandwich)
+library(lmtest)
+
+```
+
+
+```{R}
+atlas <- read_dta("/Users/ethan/Desktop/datlas.dta")
+
+ggplot(atlas) + geom_histogram(aes(x=kfr_pooled_pooled_p25, y=..density..))
+
+```
+
+```{R}
+#Creating Dataframe
+#filter out NA's
+data_filtered <- atlas[!is.na(atlas$kfr_pooled_pooled_p25), ]
+```
+
+```{R}
+#create dataframe for cambridge
+cambridge_df <- data_filtered[data_filtered$cz == 20500, ]
+
+#Demonstrate Correlation between poor_share1990 and abs mobility at 25th per
+  ggplot(cambridge_df, aes(x=poor_share1990, y=kfr_pooled_pooled_p25)) +
+    stat_smooth(method=lm, se=FALSE) + 
+    stat_binmean(n = 20, geom = "point")
+  
+
+
+```

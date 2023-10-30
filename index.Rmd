@@ -39,6 +39,7 @@ library(lmtest)
 
 ```
 
+Below, I demonstrate a visualization of a histogram showing the distribution of kfr_pooled_pooled_p25 (average mobility at the 25th percentile).
 
 ```{R}
 atlas <- read_dta("/Users/ethan/Desktop/datlas.dta")
@@ -52,6 +53,8 @@ ggplot(atlas) + geom_histogram(aes(x=kfr_pooled_pooled_p25, y=..density..))
 #filter out NA's
 data_filtered <- atlas[!is.na(atlas$kfr_pooled_pooled_p25), ]
 ```
+
+Here is a visualization demonstrating the correlation between poor_share1990 and absolute mobility at the 25th percentile. Higher levels of poverty were negatively correlated with absolute mobility at the 25th percentile. 
 
 ```{R}
 #create dataframe for cambridge

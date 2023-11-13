@@ -89,7 +89,7 @@ Conversely, a different pattern is observed in the black population of Cambridge
     stat_smooth(method=lm, se=FALSE) + 
     stat_binmean(n = 20, geom = "point")
 
-#calc corcoeff
+#calc corcoeff black
 cor(cambridge_df$share_black2010, cambridge_df$kfr_pooled_pooled_p25)
 
 ```

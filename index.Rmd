@@ -124,6 +124,6 @@ kable_table
 ```
 
 
-Holistically, we can conclude that the regions subjected to redlining demonstrated reduced mobility factors, coinciding with the locations where minority groups, particularly black individuals, were concentrated due to these policies. This implies that the areas affected by redlining were also those suffering from systemic discrimination and poverty issues. Conversely, areas predominantly inhabited by white populations have benefited from robust investment and development, supported by strong governmental backing and generational wealth. 
+Holistically, we can conclude that the regions subjected to redlining demonstrated reduced mobility factors, coinciding with the locations where minority groups, particularly black individuals, were concentrated due to these policies. This implies that the areas affected by redlining were also those suffering from systemic discrimination and poverty issues. Conversely, areas predominantly inhabited by white populations have benefited from robust investment and development, supported by strong governmental backing and generational wealth.  
 
 

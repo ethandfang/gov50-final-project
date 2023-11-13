@@ -103,7 +103,7 @@ A similar trend follows for Hispanic populations. With a correlation coefficient
     stat_smooth(method=lm, se=FALSE) + 
     stat_binmean(n = 20, geom = "point")
    
-#calc corr coeff 
+#calc corr coefficient
 cor(cambridge_df$share_hisp2010, cambridge_df$kfr_pooled_pooled_p25)
 
 ```

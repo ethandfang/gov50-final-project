@@ -15,9 +15,7 @@ I am interested in exploring data related to disability advocacy, race, and gend
 
 ## One Paragraph Proposal
 
-Are the social and economic ramifications of redlining still prevalent today? In this study, I plan to examine the extent to which regions in Cambridge display the longer-term effects of redlining practices. As part of the Harvard Public Opinion Project (HPOP), I helped advance an investigation on affordable housing and poverty infrastructure in Cambridge and the greater Boston area, and further extrapolated polling findings to the country at large. 
-
-Through these, I hypothesize that Cambridge's minority communities are disproportionately represented in areas of higher socioeconoimc stress -- due not only to matters of personal sorting or preference, but moreso due to systemic factors propogating from decades of redlining practices riddled with historical discrimination. One of the most salient effects of redlining was the development of segregated neighborhoods. By denying loans to residents of certain neighborhoods, financial institutions created a concentration of poverty in these areas. 
+Are the social and economic ramifications of redlining still prevalent today? In this study, I plan to examine the extent to which regions in Cambridge display the longer-term effects of redlining practices. I hypothesize that Cambridge's minority communities are disproportionately represented in areas of higher socioeconoimc stress -- due not only to matters of personal sorting or preference, but moreso due to systemic factors propogating from decades of redlining practices riddled with historical discrimination. One of the most salient effects of redlining was the development of segregated neighborhoods. By denying loans to residents of certain neighborhoods, financial institutions created a concentration of poverty in these areas. 
 
 My dataset for this project will be the Opportunity Atlas, which contains data on adult incomes, racial breakdown, parent incomes, and more. My sample, from the Opportunity Atlas, will contain anonymous data following 20 million Americans from childhood to their mid-30s (collected from de-identified data from the 2000 and 2010 decennial Censuses). My unit of analysis is a specific ZIP code representing a small region, or in other words, my individual datapoints each represent one ZIP code. The primary explanatory variable is the racial composition of different areas, measured by the proportion of white and black residents. This data can be obtained from census records, which provide detailed, comprehensive demographic data broken down by racial and ethnic groups at various geographical levels, ensuring variation in the racial composition across different areas. I will be analyzing the outcome variable of absolute mobility at the 25th percentile, and to do so, I will use the predicted rank of a child for a given parent's income rank, labeled as kfr_pooled_pooled_p25, for which units are measured as the mean percentile rank according to the 2010 decennial Census. For this metric, higher values will correspond with higher upward mobility.
 
@@ -57,10 +55,10 @@ data_filtered <- atlas[!is.na(atlas$kfr_pooled_pooled_p25), ]
 Here is a visualization demonstrating the correlation between poor_share1990 and absolute mobility at the 25th percentile. Higher levels of poverty were negatively correlated with absolute mobility at the 25th percentile. 
 
 ```{R}
-#create dataframe for cambridge
+#Dataframe Cambridge
 cambridge_df <- data_filtered[data_filtered$cz == 20500, ]
 
-#Demonstrate Correlation between poor_share1990 and abs mobility at 25th per
+#Demonstrate Correlation between poor_share1990 and absolute mobility at 25th percentile
   ggplot(cambridge_df, aes(x=poor_share1990, y=kfr_pooled_pooled_p25)) +
     stat_smooth(method=lm, se=FALSE) + 
     stat_binmean(n = 20, geom = "point")
@@ -68,3 +66,64 @@ cambridge_df <- data_filtered[data_filtered$cz == 20500, ]
 
 
 ```
+## One Analysis Attempting to Answer Research Question (Milestone 4)
+
+To identify the effects of redlining, I am now going to classify the population of Cambridge into different racial groups to examine the relationship between racial composition and rates of social mobility. This will involve analyzing the correlation between the proportion of white residents in 2010 and the mobility metric, absolute mobility at the 25th percentile, as these reflect the percentage of white individuals in an area and the measure of social mobility, respectively. As illustrated in the below figure, regions with a higher percentage of white residents showed a stronger tendency towards achieving higher levels of social mobility. Furthermore, the correlation between the share of a specific racial group in the population and social mobility was found to be 0.48, indicating a significant relationship.
+
+```{R}
+  #Correlation share_white2010, kfr_pooled_pooled_p25
+  ggplot(cambridge_df, aes(x=share_white2010, y=kfr_pooled_pooled_p25)) +
+    stat_smooth(method=lm, se=FALSE) + 
+    stat_binmean(n = 20, geom = "point")
+
+#calculate correlation coefficient
+cor(cambridge_df$share_white2010, cambridge_df$kfr_pooled_pooled_p25)
+  
+```
+Conversely, a different pattern is observed in the black population of Cambridge. The below figure illustrates a negative correlation between share_black2010 and kfr_pooled_pooled_p25. These variables represent the percentage of black residents in a region and the social mobility metric, respectively. The correlation coefficient of -0.43 suggests a strong inverse relationship between these two factors. Essentially, this implies that an increased percentage of black individuals in an area is associated with reduced levels of social mobility.
+
+```{R}
+
+  #Correlation share_black2010 and kfr_pooled_pooled_p25
+  ggplot(cambridge_df, aes(x=share_black2010, y=kfr_pooled_pooled_p25)) +
+    stat_smooth(method=lm, se=FALSE) + 
+    stat_binmean(n = 20, geom = "point")
+
+#calc corcoeff
+cor(cambridge_df$share_black2010, cambridge_df$kfr_pooled_pooled_p25)
+
+```
+
+A similar trend follows for Hispanic populations. With a correlation coefficient of -0.44, this indicates a strong negative correlation between these variables, suggesting that areas with a higher proportion of Hispanic residents tend to have lower social mobility. This observation aligns with the historical context of redlining affecting Hispanic communities.
+
+```{r}
+
+  #Correlation share_hisp2010 and kfr_pooled_pooled_p25
+  ggplot(cambridge_df, aes(x=share_hisp2010, y=kfr_pooled_pooled_p25)) +
+    stat_smooth(method=lm, se=FALSE) + 
+    stat_binmean(n = 20, geom = "point")
+   
+#calc corr coeff 
+cor(cambridge_df$share_hisp2010, cambridge_df$kfr_pooled_pooled_p25)
+
+```
+```{R}
+mobility_data <- data.frame(White = c("0.48"), Black = c("-0.43"), Hispanic = c("-0.44"))
+
+# Create the table
+kable_table <- knitr::kable(mobility_data, 
+                     col.names = c("Absolute Mobility Coefficient (White)", 
+                                   "Absolute Mobility Coefficient (Black)", 
+                                   "Absolute Mobility Coefficient (Hispanic)"),
+                     caption = "Absolute Mobility vs Share Racial Profile, Coefficients")
+
+# Print the table
+kable_table
+
+
+```
+
+
+Holistically, we can conclude that the regions subjected to redlining demonstrated reduced mobility factors, coinciding with the locations where minority groups, particularly black individuals, were concentrated due to these policies. This implies that the areas affected by redlining were also those suffering from systemic discrimination and poverty issues. Conversely, areas predominantly inhabited by white populations have benefited from robust investment and development, supported by strong governmental backing and generational wealth. 
+
+

@@ -119,7 +119,7 @@ Furthermore, when running a linear regression between economic mobility and prop
 In other words, each one percentage point increase in proportion of white people in a given ZIP code corresponded with a 0.130 increase in mean percentile rank for economic mobility. This ultimately means that, a higher proportion of white people in a given region leads to better future economic prospects. 
 
 ```{r echo=FALSE, results='asis'}
-modelsummary::modelsummary(lm1,
+modelsummary::modelsummary(list("Economic Mobility vs Share White" = lm1),
                            statistic = c("s.e. = {std.error}",
                                          "p = {p.value}"),
                            gof_map = c("nobs", "r.squared", "adj.r.squared"))
@@ -154,7 +154,7 @@ In other words, each one percentage point increase in proportion of black people
 #LM
 lm2 <- lm(kfr_pooled_pooled_p25 ~ share_black, data=cambridge_df)
 
-modelsummary::modelsummary(lm2,
+modelsummary::modelsummary(list("Economic Mobility vs Share Black" = lm2),
                            statistic = c("s.e. = {std.error}",
                                          "p = {p.value}"),
                            gof_map = c("nobs", "r.squared", "adj.r.squared"))
@@ -186,10 +186,11 @@ In other words, each one percentage point increase in proportion of hispanic peo
 #LM
 lm3 <- lm(kfr_pooled_pooled_p25 ~ share_hisp, data=cambridge_df)
 
-modelsummary::modelsummary(lm3,
+modelsummary::modelsummary(list("Economic Mobility vs Share Hispanic" = lm3),
                            statistic = c("s.e. = {std.error}",
                                          "p = {p.value}"),
                            gof_map = c("nobs", "r.squared", "adj.r.squared"))
+
 
 ```
 
